@@ -1,0 +1,20 @@
+.navContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.linksContainter {
+    display: flex;
+    justify-content: space-between;
+    width: 30%;
+    align-items: center;
+}
+
+.link {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}

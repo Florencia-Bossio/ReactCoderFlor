@@ -1,0 +1,16 @@
+.cart {
+    font-size: 1.5rem;
+    margin-right: 0.2rem;
+}
+
+.badge {
+    padding: 0.2rem 0.5rem;
+    background-color: rgb(113, 205, 221);
+    color: white;
+    border-radius: 10px;
+}
+
+.containter {
+    display: flex;
+    align-items: center;
+}
