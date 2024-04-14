@@ -10,8 +10,11 @@ const Navbar = () => {
                 <NavLink className='link' to='/categories/alfombras'>Alfombras</NavLink>
                 <NavLink className='link' to='/categories/cestos'>Cestos</NavLink>
                 <NavLink className='link' to='/categories/decoracion'>Decoración</NavLink>
+                <NavLink className='link' to='/categories/dispenser'>Dispenser</NavLink>
             </div>
-            <CartWidget/>
+            <NavLink to='/cart' className='link'>
+                <CartWidget/>
+            </NavLink>
         </nav>
     )
 }

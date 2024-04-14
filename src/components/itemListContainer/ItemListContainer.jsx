@@ -2,38 +2,48 @@ import './itemListContainer.css';
 import React from 'react';
 //import hook
 import {useState, useEffect} from 'react';
-import {getProducts} from '../../mock/fakeApi';
 import ItemList from '../itemList/ItemList';
 import {useParams} from 'react-router-dom';
+import {collection, getDocs, query, where} from 'firebase/firestore';
+import {db} from '../../services/firebase';
+import Loader from '../loader/Loader';
 
 const ItemListContainer = ({greeting}) => {
     const [productos, setProductos] = useState([])
     const [loading, setLoading] = useState(false)
     const {categoryId} = useParams()
-    console.log(categoryId)
 
-    //useEffect se ejecuta una sola vez
-    useEffect(() => {
+    //FIREBASE
+    useEffect(()=>{
         setLoading(true)
-        getProducts()
-        .then((res) => {
-            if(categoryId) {
-                setProductos(res.filter((prod) => prod.categoria === categoryId))
-            } else{
-                setProductos(res)
-            }
+        //Conectarnos con nuestra colección
+        const productsCollection = categoryId ? query(collection(db, 'productos'), where('categoria', '==', categoryId)) : collection(db, 'productos')
+        //Pedimos los documentos
+        getDocs(productsCollection)
+        .then((res)=>{
+            const list = res.docs.map((product)=>{
+                return{
+                    id:product.id,
+                    ...product.data()
+                }
+            })
+            setProductos(list)
         })
-        .catch((error) => console.log(error, 'todo mal'))
-        .finally(() => setLoading(false))
+        .catch((error)=>console.log(error))
+        .finally(()=>setLoading(false))
     },[categoryId])
 
+    //Return anticipado
     if(loading) {
-        return <h2>Cargando...</h2>
+        return (
+            <div className='loader'>
+                <Loader/>
+            </div>
+        )
     }
    
     return(
         <div>
-            {categoryId ? <h1 className='saludo'>{greeting}<span style={{color:'violet'}}>{categoryId}</span></h1> : <h1 className='saludo'></h1>}
             <ItemList productos={productos}/>
         </div>
     )

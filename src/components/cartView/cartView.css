@@ -1,0 +1,14 @@
+.vistaCarrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+}
+
+.imgVistaCarrito {
+    width: 8rem;
+}
+
+.botonCarrito {
+    margin: 1rem;
+}
